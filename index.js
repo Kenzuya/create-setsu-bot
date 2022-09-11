@@ -217,6 +217,12 @@ async function checkDependencies() {
                                     resolve(undefined)
                                 }
                             })
+                        } else if (os === 'win32') {
+                            spinner.error({text: chalk.red('Please install git first from https://gitforwindows.org/, exiting...')})
+                            process.exit(1)
+                        } else {
+                            spinner.error({text: chalk.red('Please install git manually, exiting...')})
+                            process.exit(1)
                         }
                     } else {
                         spinner.success({text: chalk.green('Git is instaled...')})
