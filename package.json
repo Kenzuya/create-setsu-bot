@@ -1,10 +1,12 @@
 {
   "name": "create-setsu-bot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create Setsu-Bot",
   "main": "index.js",
   "type": "module",
-  "bin": "./index.js",
+  "bin": {
+    "create-setsu-bot": "index.js"
+  },
   "scripts": {
     "start": "node .",
     "build": "esbuild index.js --bundle --minify --format=esm --platform=node --outfile=main.js"
