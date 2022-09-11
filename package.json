@@ -1,0 +1,38 @@
+{
+  "name": "create-setsu-bot",
+  "version": "1.0.0",
+  "description": "Create Setsu-Bot",
+  "main": "index.js",
+  "type": "module",
+  "bin": "./index.js",
+  "scripts": {
+    "start": "node .",
+    "build": "esbuild index.js --bundle --minify --format=esm --platform=node --outfile=main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kenzuya/create-setsu-bot.git"
+  },
+  "author": "Kenzuya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kenzuya/create-setsu-bot/issues"
+  },
+  "files": [
+    "index.js"
+  ],
+  "homepage": "https://github.com/Kenzuya/create-setsu-bot#readme",
+  "dependencies": {
+    "awesome-phonenumber": "^3.3.0",
+    "chalk": "^5.0.1",
+    "chalk-animation": "^2.0.2",
+    "cli-progress": "^3.11.2",
+    "figlet": "^1.5.2",
+    "gradient-string": "^2.0.1",
+    "inquirer": "^9.1.1",
+    "jszip": "^3.10.1",
+    "nanospinner": "^1.1.0",
+    "node-fetch": "^3.2.10",
+    "request": "^2.88.2"
+  }
+}
