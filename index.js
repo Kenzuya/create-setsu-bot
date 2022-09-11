@@ -188,6 +188,43 @@ function copyFolder(src, dest) {
 // function renameFolder()
 async function checkDependencies() {
     return new Promise(async (resolve) => {
+        async function checkGitBash() {
+            const spinner = createSpinner(chalk.yellow('Checking Git...')).start()
+            await sleep(2000)
+            return new Promise((resolve, reject) => {
+                exec('git --version', async (err) => {
+                    if(err) {
+                        spinner.update({text: chalk.yellow('Git is not installed, installing...')})
+                        const os = platform()
+                        if(os === 'android') {
+                            exec('pkg install git -y', (err) => {
+                                if(err) {
+                                    spinner.error({text: chalk.red('Failed to install Git, exiting...')})
+                                    process.exit(1)
+                                } else {
+                                    spinner.success({text: chalk.green('Git succesfully installed...')})
+                                    resolve(undefined)
+                                }
+                            })
+                        } else if(os === 'linux') {
+                            await askPassword("Please input your user password to install FFmpeg...\nJust enter if not using Password\n")
+                            exec(`echo ${vars.get('password')} | sudo -S apt install git -y`, (err) => {
+                                if(err) {
+                                    spinner.error({text: chalk.red('Failed to install Git, exiting...')})
+                                    process.exit(1)
+                                } else {
+                                    spinner.success({text: chalk.green('Git succesfully installed...')})
+                                    resolve(undefined)
+                                }
+                            })
+                        }
+                    } else {
+                        spinner.success({text: chalk.green('Git is instaled...')})
+                        resolve(undefined)
+                    }
+                })
+            })
+        }
         function checkFFmpeg() {
             // const text = chalkAnimation.neon("Checking ffmpeg")
             return new Promise(async (resolve) => {
@@ -275,6 +312,7 @@ ${chalk.red('Don\'t forget to close window when you\'re done')}
             })
         }
         await checkFFmpeg()
+        await checkGitBash()
         // await checkPython()
         resolve(undefined)
     });
