@@ -155,8 +155,11 @@ return new Promise(async (resolve) => {
     const spinner = createSpinner(chalk.hex(generateColor())('Installing dependencies...')).start()
     exec('cd setsu-bot && npm install', (err) => {
         if(err) {
-            console.log(err.code);
             console.log(chalk.hex(generateColor())('Unknown error to installing dependencies...'));
+            console.log(chalk.hex(generateColor())('Script is already downloaded, but we failed to install...'));
+            console.log(chalk.hex(generateColor())('You can check setsu-bot directory, exiting...'));
+            spinner.error()
+            process.exit(1)
         } else {
             spinner.success()
             resolve(undefined)
